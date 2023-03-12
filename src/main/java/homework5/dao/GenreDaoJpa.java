@@ -3,14 +3,13 @@ package homework5.dao;
 import homework5.domain.Genre;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class GenreDaoJpa implements GenreDao {
 
     @PersistenceContext
@@ -43,8 +42,7 @@ public class GenreDaoJpa implements GenreDao {
 
     @Override
     public void deleteById(long id) {
-        Query query = em.createQuery("delete from Genre g where g.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+       Genre genre = em.find(Genre.class, id);
+       em.remove(genre);
     }
 }

@@ -1,13 +1,15 @@
 package homework5.dao;
 
 import homework5.domain.Author;
-import jakarta.persistence.*;
-import org.springframework.stereotype.Repository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class AuthorDaoJpa implements AuthorDao {
 
     @PersistenceContext
@@ -40,8 +42,7 @@ public class AuthorDaoJpa implements AuthorDao {
 
     @Override
     public void deleteById(long id) {
-        Query query = em.createQuery("delete from Author a where a.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    Author author = em.find(Author.class, id);
+    em.remove(author);
     }
 }

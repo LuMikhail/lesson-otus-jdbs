@@ -4,12 +4,12 @@ import homework5.domain.Author;
 import homework5.domain.Book;
 import homework5.domain.Genre;
 import jakarta.persistence.*;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class BookDaoJpa implements BookDao {
 
     @PersistenceContext
@@ -55,9 +55,8 @@ public class BookDaoJpa implements BookDao {
 
     @Override
     public void deleteById(long id) {
-        Query query = em.createQuery("delete from Book b where b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Book book = em.find(Book.class, id);
+        em.remove(book);
     }
 
     @Override
