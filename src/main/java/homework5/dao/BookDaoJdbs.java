@@ -43,8 +43,8 @@ public class BookDaoJdbs implements BookDao {
     public Book findById(long id) {
         final Map<String, Object> params = Collections.singletonMap("id", id);
         return jdbcOperations.queryForObject(
-                "select book_id, title, name_author, author_id, name_genre, genre_id, amount " +
-                "from book join genre using (genre_id) join author using (author_id) where book_id = :id",
+                "select b.book_id, b.title, a.name_author, a.author_id, g.name_genre, g.genre_id, b.amount " +
+                "from book b join genre g using (genre_id) join author a using (author_id) where book_id = :id",
                 params, new BookMapper()
         );
     }
@@ -52,8 +52,8 @@ public class BookDaoJdbs implements BookDao {
     @Override
     public List<Book> findAll() {
         return jdbcOperations.query(
-                "select book_id, title, name_author, author_id, name_genre, genre_id, amount "
-                + "from book join genre using (genre_id) join author using (author_id)", new BookMapper());
+                "select b.book_id, b.title, a.name_author, a.author_id, g.name_genre, g.genre_id, b.amount "
+                + "from book b join genre g using (genre_id) join author a using (author_id)", new BookMapper());
     }
 
     @Override
@@ -74,8 +74,8 @@ public class BookDaoJdbs implements BookDao {
     public List<Book> findBooksByGenreId(long genreId) {
         final Map<String, Object> params = Collections.singletonMap("id", genreId);
         return jdbcOperations.query(
-                "select book_id, title, name_author, author_id, name_genre, genre_id, amount "
-                + "from book join genre using (genre_id) join author using (author_id) where genre_id = :id",
+                "select b.book_id, b.title, a.name_author, a.author_id, g.name_genre, g.genre_id, b.amount "
+                + "from book b join genre g using (genre_id) join author a using (author_id) where g.genre_id = :id",
                 params, new BookMapper());
     }
 
@@ -83,8 +83,8 @@ public class BookDaoJdbs implements BookDao {
     public List<Book> findBooksByAuthorId(long authorId) {
         final Map<String, Object> params = Collections.singletonMap("id", authorId);
         return jdbcOperations.query(
-                "select book_id, title, name_author, author_id, name_genre, genre_id, amount "
-                + "from book join genre using (genre_id) join author using (author_id) where author_id = :id",
+                "select b.book_id, b.title, a.name_author, a.author_id, g.name_genre, g.genre_id, b.amount "
+                + "from book b join genre g using (genre_id) join author a using (author_id) where a.author_id = :id",
                 params, new BookMapper());
     }
 
