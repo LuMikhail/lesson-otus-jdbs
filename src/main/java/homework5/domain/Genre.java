@@ -1,12 +1,14 @@
 package homework5.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "genre")
+@AllArgsConstructor
 @NoArgsConstructor
 public class Genre {
 
@@ -16,11 +18,6 @@ public class Genre {
 
     @Column(name = "name_genre", nullable = false)
     private String genre;
-
-    public Genre(long id, String genre) {
-        this.id = id;
-        this.genre = genre;
-    }
 
     public Genre(long id) {
         this.id = id;

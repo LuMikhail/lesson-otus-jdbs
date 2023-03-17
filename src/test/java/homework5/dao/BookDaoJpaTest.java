@@ -36,7 +36,6 @@ class BookDaoJpaTest {
     void shouldAddBook() {
        bookDao.insert(new Book(5L, "Скриба", new Author(3L), new Genre(2L), 3, null));
         assertThat(bookDao.findAll()).hasSize(BOOK_COUNT + 1);
-        List<Book> books = bookDao.findAll();
     }
 
     @Test
